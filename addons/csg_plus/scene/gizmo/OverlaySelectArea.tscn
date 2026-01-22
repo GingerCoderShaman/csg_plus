@@ -1,0 +1,23 @@
+[gd_scene load_steps=5 format=3 uid="uid://bq3e5l75sinso"]
+
+[ext_resource type="Script" uid="uid://b6xj0jnxyckom" path="res://addons/csg_plus/scene/gizmo/OverlaySelectArea.gd" id="1_1lhqk"]
+
+[sub_resource type="QuadMesh" id="QuadMesh_pjcsd"]
+
+[sub_resource type="Gradient" id="Gradient_tvlar"]
+colors = PackedColorArray(0, 0.639216, 1, 0.286275, 0, 0.639216, 1, 0.286275)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_gm0jo"]
+gradient = SubResource("Gradient_tvlar")
+width = 2
+height = 2
+fill_from = Vector2(0, 1)
+fill_to = Vector2(0, 1)
+repeat = 2
+
+[node name="overlay_select_area" type="MeshInstance2D"]
+position = Vector2(145, 87)
+scale = Vector2(179.5, 107.5)
+mesh = SubResource("QuadMesh_pjcsd")
+texture = SubResource("GradientTexture2D_gm0jo")
+script = ExtResource("1_1lhqk")

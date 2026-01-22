@@ -1,0 +1,6 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://d2371ak1qlwyi"]
+
+[ext_resource type="Texture2D" uid="uid://dlq5yoibuec6a" path="res://addons/csg_plus/resources/texture/defaultTexture.png" id="1_aj8gw"]
+
+[resource]
+albedo_texture = ExtResource("1_aj8gw")

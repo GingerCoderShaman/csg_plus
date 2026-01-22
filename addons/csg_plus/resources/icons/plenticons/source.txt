@@ -1,0 +1,7 @@
+
+modifications
+dotspark had merged into 1.
+cube-node-selected, cube-line-selected and cube-face-selected originate from cube-green
+
+CC0 License from elementalbound, source is here.
+https://github.com/foxssake/plenticons/releases

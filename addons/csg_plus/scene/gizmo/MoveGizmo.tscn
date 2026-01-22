@@ -1,0 +1,37 @@
+[gd_scene load_steps=8 format=3 uid="uid://bdmlml2mweujv"]
+
+[ext_resource type="Script" uid="uid://dstjkxjafldj" path="res://addons/csg_plus/scene/gizmo/MoveGizmo.gd" id="1_bwuuq"]
+[ext_resource type="ArrayMesh" uid="uid://bsmxojjhd4wtn" path="res://addons/csg_plus/resources/model/movegizmo.obj" id="2_gr842"]
+[ext_resource type="Texture2D" uid="uid://d4gb7nw8wn2c" path="res://addons/csg_plus/resources/texture/movegizmocolors.png" id="3_44pfm"]
+[ext_resource type="ArrayMesh" uid="uid://ulo11bfnj2hg" path="res://addons/csg_plus/resources/model/movegizmoplanes.obj" id="4_e5sn6"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gr842"]
+shading_mode = 0
+albedo_texture = ExtResource("3_44pfm")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bwuuq"]
+shading_mode = 0
+albedo_texture = ExtResource("3_44pfm")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_coy0j"]
+shading_mode = 0
+albedo_texture = ExtResource("3_44pfm")
+
+[node name="Node3D" type="Node3D"]
+transform = Transform3D(0.639364, 0, 0, 0, 0.639364, 0, 0, 0, 0.639364, 0, 0, 0)
+script = ExtResource("1_bwuuq")
+
+[node name="MainGIzmo" type="MeshInstance3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 0)
+mesh = ExtResource("2_gr842")
+skeleton = NodePath("../Planes")
+surface_material_override/0 = SubResource("StandardMaterial3D_gr842")
+
+[node name="Planes" type="MeshInstance3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 0)
+mesh = ExtResource("4_e5sn6")
+skeleton = NodePath("")
+surface_material_override/0 = SubResource("StandardMaterial3D_bwuuq")
+surface_material_override/1 = SubResource("StandardMaterial3D_coy0j")

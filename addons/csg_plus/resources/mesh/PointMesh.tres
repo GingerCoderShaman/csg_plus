@@ -1,0 +1,10 @@
+[gd_resource type="SphereMesh" load_steps=2 format=3 uid="uid://clevhbbi8suik"]
+
+[ext_resource type="Material" uid="uid://dqqk3l3ph4rn3" path="res://addons/csg_plus/resources/material/PointsMesh/Normal.tres" id="1_krpw4"]
+
+[resource]
+material = ExtResource("1_krpw4")
+radius = 0.05
+height = 0.1
+radial_segments = 16
+rings = 8

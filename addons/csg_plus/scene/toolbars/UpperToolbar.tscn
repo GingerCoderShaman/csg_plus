@@ -1,0 +1,68 @@
+[gd_scene load_steps=7 format=3 uid="uid://b5kousmm58lgw"]
+
+[ext_resource type="Script" uid="uid://dydnwomy13dm7" path="res://addons/csg_plus/scene/toolbars/UpperToolbar.gd" id="1_nyxal"]
+[ext_resource type="Texture2D" uid="uid://sg7a5rxx87tl" path="res://addons/csg_plus/resources/icons/plenticons/dotspark-all.png" id="2_fl1m2"]
+[ext_resource type="Texture2D" uid="uid://dpl3d3nu68alw" path="res://addons/csg_plus/resources/icons/plenticons/cube-node-selected.png" id="3_k0orr"]
+[ext_resource type="Texture2D" uid="uid://bw3hdlcqqpb2c" path="res://addons/csg_plus/resources/icons/plenticons/cube-line-selected.png" id="4_ipqao"]
+[ext_resource type="Texture2D" uid="uid://b75jsolbbi5t" path="res://addons/csg_plus/resources/icons/plenticons/cube-face-selected.png" id="5_rarxp"]
+[ext_resource type="Texture2D" uid="uid://bff82x8ppxrs1" path="res://addons/csg_plus/resources/icons/plenticons/cube-yellow.png" id="6_jxetx"]
+
+[node name="HBoxContainer" type="HBoxContainer"]
+offset_right = 220.0
+offset_bottom = 35.0
+script = ExtResource("1_nyxal")
+metadata/_edit_lock_ = false
+
+[node name="ModeSelector" type="HBoxContainer" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="DefaultMode" type="Button" parent="ModeSelector"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+tooltip_text = "Godot Default Edit Mode"
+icon = ExtResource("2_fl1m2")
+expand_icon = true
+metadata/_edit_lock_ = false
+
+[node name="NodeMode" type="Button" parent="ModeSelector"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+tooltip_text = "Editor Node Mode"
+icon = ExtResource("3_k0orr")
+flat = true
+expand_icon = true
+metadata/_edit_lock_ = false
+
+[node name="LineMode" type="Button" parent="ModeSelector"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+tooltip_text = "Editor Line Mode"
+icon = ExtResource("4_ipqao")
+flat = true
+expand_icon = true
+metadata/_edit_lock_ = false
+
+[node name="FaceMode" type="Button" parent="ModeSelector"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+tooltip_text = "Editor Face Mode"
+icon = ExtResource("5_rarxp")
+flat = true
+expand_icon = true
+metadata/_edit_lock_ = false
+
+[node name="CreateMode" type="Button" parent="ModeSelector"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+tooltip_text = "Editor Node Mode"
+icon = ExtResource("6_jxetx")
+flat = true
+expand_icon = true
+metadata/_edit_lock_ = false
+
+[connection signal="pressed" from="ModeSelector/DefaultMode" to="." method="set_default_mode"]
+[connection signal="pressed" from="ModeSelector/NodeMode" to="." method="set_node_mode"]
+[connection signal="pressed" from="ModeSelector/LineMode" to="." method="_on_line_mode_pressed"]
+[connection signal="pressed" from="ModeSelector/FaceMode" to="." method="_on_face_mode_pressed"]
+[connection signal="pressed" from="ModeSelector/CreateMode" to="." method="_on_create_mode_pressed"]

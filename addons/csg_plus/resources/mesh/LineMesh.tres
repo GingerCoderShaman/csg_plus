@@ -1,0 +1,8 @@
+[gd_resource type="CylinderMesh" load_steps=2 format=3 uid="uid://cnaifsacxjny1"]
+
+[ext_resource type="Material" uid="uid://110nl8n6yo4a" path="res://addons/csg_plus/resources/material/LineMesh/Normal.tres" id="1_qx81o"]
+
+[resource]
+material = ExtResource("1_qx81o")
+radial_segments = 10
+rings = 1

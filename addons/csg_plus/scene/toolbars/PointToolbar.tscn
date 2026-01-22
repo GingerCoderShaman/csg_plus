@@ -1,0 +1,52 @@
+[gd_scene load_steps=5 format=3 uid="uid://b3b8q6kah8nan"]
+
+[ext_resource type="Texture2D" uid="uid://bx1sgn2ubpfev" path="res://addons/csg_plus/resources/icons/plenticons/select.png" id="1_sauy3"]
+[ext_resource type="Script" uid="uid://uoxnemk03c4a" path="res://addons/csg_plus/scene/toolbars/PointToolbar.gd" id="1_t4abj"]
+[ext_resource type="Texture2D" uid="uid://dxbldwnw5d03n" path="res://addons/csg_plus/resources/icons/plenticons/new-node.png" id="3_d6yg4"]
+[ext_resource type="Texture2D" uid="uid://cmikii2s4u4qd" path="res://addons/csg_plus/resources/icons/plenticons/trashcan-red.png" id="4_2xxe3"]
+
+[node name="NodeToolbar" type="HBoxContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_bottom = -609.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_t4abj")
+
+[node name="Tools" type="HBoxContainer" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="SelectTool" type="Button" parent="Tools"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+tooltip_text = "Selector Tool
+"
+icon = ExtResource("1_sauy3")
+expand_icon = true
+metadata/_edit_lock_ = false
+
+[node name="NodeCreatorTool" type="Button" parent="Tools"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+tooltip_text = "Node Creator Tool
+"
+icon = ExtResource("3_d6yg4")
+flat = true
+expand_icon = true
+metadata/_edit_lock_ = false
+
+[node name="NodeDeletorTool" type="Button" parent="Tools"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+tooltip_text = "Node Creator Tool
+"
+icon = ExtResource("4_2xxe3")
+flat = true
+expand_icon = true
+metadata/_edit_lock_ = false
+
+[connection signal="pressed" from="Tools/SelectTool" to="." method="_on_select_tool_pressed"]
+[connection signal="pressed" from="Tools/NodeCreatorTool" to="." method="_on_node_creator_tool_pressed"]
+[connection signal="pressed" from="Tools/NodeDeletorTool" to="." method="_on_node_deletor_tool_pressed"]

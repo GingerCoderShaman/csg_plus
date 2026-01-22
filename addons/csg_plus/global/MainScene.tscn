@@ -1,0 +1,97 @@
+[gd_scene load_steps=11 format=3 uid="uid://d3c30wvyqc0e8"]
+
+[ext_resource type="Script" uid="uid://dht7g0j83f8mw" path="res://addons/csg_plus/global/NodeHandler.gd" id="1_j6ybj"]
+[ext_resource type="Script" uid="uid://d3marfauiuvpx" path="res://addons/csg_plus/global/CSGPlusController.gd" id="1_kcv8l"]
+[ext_resource type="Script" uid="uid://d03nbrlw2o80a" path="res://addons/csg_plus/global/RenderOverScreen.gd" id="2_aad4h"]
+[ext_resource type="PackedScene" uid="uid://b82eo0bpkbqi6" path="res://addons/csg_plus/global/render_3d_overarea.tscn" id="4_nw53l"]
+[ext_resource type="Script" uid="uid://b5l68nxeil5xc" path="res://addons/csg_plus/global/MaterialRenderer.gd" id="5_hb4uy"]
+[ext_resource type="Material" uid="uid://d2371ak1qlwyi" path="res://addons/csg_plus/resources/material/levels/DefaultMaterial.tres" id="6_hb4uy"]
+[ext_resource type="Script" uid="uid://dxukrnbp18jqo" path="res://addons/csg_plus/global/ErrorPanel.gd" id="7_1dq63"]
+
+[sub_resource type="QuadMesh" id="QuadMesh_b1ym1"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_nw53l"]
+viewport_path = NodePath(".")
+
+[sub_resource type="QuadMesh" id="QuadMesh_nw53l"]
+material = ExtResource("6_hb4uy")
+
+[node name="CSGPlusGlobals" type="Node"]
+script = ExtResource("1_kcv8l")
+
+[node name="NodesHandler" type="Node" parent="."]
+unique_name_in_owner = true
+script = ExtResource("1_j6ybj")
+
+[node name="FaceHandler" type="Node" parent="."]
+unique_name_in_owner = true
+
+[node name="2DOverlay" type="Node" parent="."]
+unique_name_in_owner = true
+
+[node name="Render3DOver" type="MeshInstance2D" parent="."]
+unique_name_in_owner = true
+z_index = 4096
+y_sort_enabled = true
+position = Vector2(559, 311)
+scale = Vector2(1224.21, -681.09)
+mesh = SubResource("QuadMesh_b1ym1")
+texture = SubResource("ViewportTexture_nw53l")
+script = ExtResource("2_aad4h")
+
+[node name="render_3d_overarea" parent="Render3DOver" instance=ExtResource("4_nw53l")]
+unique_name_in_owner = true
+size = Vector2i(1118, 622)
+size_2d_override = Vector2i(1118, 622)
+
+[node name="Miscellaneous" type="Node" parent="."]
+unique_name_in_owner = true
+
+[node name="ErrorPanel" type="Panel" parent="."]
+unique_name_in_owner = true
+modulate = Color(1, 1, 1, -0.00110297)
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -416.0
+offset_top = -48.0
+offset_right = 429.0
+offset_bottom = -9.0
+grow_horizontal = 2
+grow_vertical = 0
+mouse_filter = 2
+script = ExtResource("7_1dq63")
+
+[node name="ErrorPanelText" type="TextEdit" parent="ErrorPanel"]
+layout_mode = 0
+offset_right = 846.0
+offset_bottom = 37.0
+mouse_filter = 2
+text = "You should not be able to see this without an Error Mssage"
+editable = false
+context_menu_enabled = false
+emoji_menu_enabled = false
+shortcut_keys_enabled = false
+selecting_enabled = false
+deselect_on_focus_loss_enabled = false
+drag_and_drop_selection_enabled = false
+virtual_keyboard_enabled = false
+middle_mouse_paste_enabled = false
+empty_selection_clipboard_enabled = false
+
+[node name="MaterialRenderer" type="SubViewport" parent="."]
+unique_name_in_owner = true
+own_world_3d = true
+debug_draw = 1
+size = Vector2i(64, 64)
+render_target_update_mode = 0
+script = ExtResource("5_hb4uy")
+
+[node name="Camera3D" type="Camera3D" parent="MaterialRenderer"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.6)
+current = true
+
+[node name="DrawingPad" type="MeshInstance3D" parent="MaterialRenderer"]
+mesh = SubResource("QuadMesh_nw53l")
