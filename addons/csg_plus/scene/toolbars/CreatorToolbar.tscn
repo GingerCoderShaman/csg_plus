@@ -1,5 +1,31 @@
-[gd_scene format=3 uid="uid://dr57hdgxtcegw"]
+[gd_scene load_steps=3 format=3 uid="uid://dr57hdgxtcegw"]
+
+[ext_resource type="Texture2D" uid="uid://bx1sgn2ubpfev" path="res://addons/csg_plus/resources/icons/plenticons/select.png" id="1_0qhdt"]
+[ext_resource type="Texture2D" uid="uid://d34sijghsr22g" path="res://addons/csg_plus/resources/icons/plenticons/hammer-gray.png" id="2_48682"]
 
 [node name="CreatorToolbar" type="Control"]
 layout_mode = 3
 anchors_preset = 0
+
+[node name="Tools" type="HBoxContainer" parent="."]
+unique_name_in_owner = true
+layout_mode = 0
+
+[node name="SelectTool" type="Button" parent="Tools"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+tooltip_text = "Selector Tool
+"
+icon = ExtResource("1_0qhdt")
+expand_icon = true
+metadata/_edit_lock_ = false
+
+[node name="MaterialPainter" type="Button" parent="Tools"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+tooltip_text = "Material Painter
+"
+icon = ExtResource("2_48682")
+flat = true
+expand_icon = true
+metadata/_edit_lock_ = false

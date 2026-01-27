@@ -21,6 +21,13 @@ var snap_global:
 	get():
 		return %SnapGlobal.button_pressed
 
+var edit_children:
+	set(value):
+		%EditChildren.button_pressed = value
+	get():
+		return %EditChildren.button_pressed
+		
+
 var current_texture:
 	set(value):
 		_user_selected_material = value
@@ -92,6 +99,7 @@ func _ready() -> void:
 	snap_amount = CSGPlusGlobals.controller.snap_distance
 	snap_global = CSGPlusGlobals.controller.setting_global_positioner
 	snap_active = CSGPlusGlobals.controller.snap
+	edit_children = CSGPlusGlobals.controller.edit_children
 	%SnapNumberContainer.visible = CSGPlusGlobals.controller.snap
 	setup_options()
 
@@ -143,6 +151,11 @@ func update_offset_scale_x(_value):
 func update_offset_scale_y(_value):
 	update()
 
+func _on_edit_children_toggled(toggled_on: bool) -> void:
+	CSGPlusGlobals.controller.edit_children = toggled_on
+	CSGPlusGlobals.controller.refresh_targeting()
+	update()
+
 func setup_options():
 	var materials_found = {}
 	materials = []
@@ -163,7 +176,6 @@ func setup_options():
 	)
 
 func seek_material_files(path: String, materials_found):
-	print(path)
 	var dir = DirAccess.open(path)
 	for file in dir.get_files():
 		if file.ends_with('.tres'):

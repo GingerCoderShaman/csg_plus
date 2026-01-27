@@ -68,6 +68,18 @@ func _enter_tree() -> void:
 	hold.keycode = KEY_CTRL
 	InputMap.action_add_event(CSGPlusGlobals.NODE_HOLD, hold)
 
+	var versioning = Engine.get_version_info()
+	var minor_version = versioning['minor']
+	var major_version = versioning['major']
+
+	if major_version != 4:
+		print('only godot 4 is supported, expect bugs')
+
+	if minor_version < 4:
+		print("version of godot is not supported and not tested, expect bugs")
+	if minor_version > 6:
+		print('version of godot is a future version and untested, expect bugs')
+
 func _exit_tree() -> void:
 	switch_mode_callback(CSGPlusGlobals.MODE.DEFAULT, CSGPlusGlobals.controller.mode)
 	CSGPlusGlobals.destroy_controller(get_editor_interface().get_editor_viewport_3d())
@@ -84,7 +96,14 @@ func _handles(changed_object: Object) -> bool:
 	tool_controls.visible = changed_object == self
 
 	var panel = get_editor_interface().get_inspector().get_parent().get_parent()
-	if panel is TabContainer:
+	var versioning = Engine.get_version_info()
+	var minor_version = versioning['minor']
+	var major_version = versioning['major']
+
+	if minor_version >= 6: #resolves the tab being moved up in the editor in version 4.6, not a problem in version 4.5.
+		panel = panel.get_parent().get_parent()
+
+	if panel is TabContainer: #Godot 4.5
 		for tab_index in panel.get_tab_count():
 			if panel.get_tab_title(tab_index) != 'Inspector':
 				panel.set_tab_hidden(tab_index, changed_object == self)

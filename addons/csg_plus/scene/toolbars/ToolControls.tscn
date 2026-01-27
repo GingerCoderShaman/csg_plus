@@ -57,7 +57,18 @@ text = "Use Snap"
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Global"
+text = "Global Pos
+"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="NodeSnap/BoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="EditChildren" type="CheckBox" parent="NodeSnap/BoxContainer2/HBoxContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Edit Children"
 
 [node name="SnapNumberContainer" type="HBoxContainer" parent="NodeSnap/BoxContainer2"]
 unique_name_in_owner = true
@@ -312,6 +323,7 @@ allow_lesser = true
 
 [connection signal="toggled" from="NodeSnap/BoxContainer2/HBoxContainer/SnapUse" to="." method="update_snap_active"]
 [connection signal="toggled" from="NodeSnap/BoxContainer2/HBoxContainer/SnapGlobal" to="." method="update_snap_global"]
+[connection signal="toggled" from="NodeSnap/BoxContainer2/HBoxContainer2/EditChildren" to="." method="_on_edit_children_toggled"]
 [connection signal="value_changed" from="NodeSnap/BoxContainer2/SnapNumberContainer/SnapNumber" to="." method="update_snap_number"]
 [connection signal="item_selected" from="FaceMaterial/BoxContainer2/TextureOption" to="." method="material_selected"]
 [connection signal="pressed" from="FaceMaterialAddon/BoxContainer2/IncludeAddons" to="." method="reset_resource_options"]

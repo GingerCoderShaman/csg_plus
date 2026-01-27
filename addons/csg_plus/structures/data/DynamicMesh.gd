@@ -464,6 +464,50 @@ func insert_point_at_line(position:Vector3, line):
 		MeshCommit.new(self, points.duplicate(), CSGPlusGlobals.FaceInfo.array_duplicate(surfaces))
 	]
 
+static func calibrate_surface_changes(new_surfaces, new_points, deleting_point, replacing_point):
+
+	for surface in new_surfaces:
+		var surface_vertexes:Array[int] = []
+		for vertex in surface.vertexes:
+			if vertex == deleting_point:
+				if replacing_point == null:
+					return null;
+				vertex = replacing_point
+			if vertex == new_points.size():
+				vertex = deleting_point
+			if surface_vertexes.size() == 0 || surface_vertexes[surface_vertexes.size()-1] != vertex:
+				surface_vertexes.append(vertex)
+		if surface_vertexes[0] == surface_vertexes[surface_vertexes.size()-1]:
+			surface_vertexes.resize(surface_vertexes.size()-1)
+		surface.vertexes = surface_vertexes
+	new_surfaces = new_surfaces.filter(
+		func(surface): return surface.vertexes.size() > 2
+	)
+
+	return new_surfaces
+
+func remove_invalid_point(point:int):
+	var new_points = points.duplicate()
+	var new_surfaces = CSGPlusGlobals.FaceInfo.array_duplicate(surfaces)
+	new_points[point] = new_points[new_points.size()-1]
+	new_points.resize(new_points.size()-1)
+	new_surfaces = calibrate_surface_changes(new_surfaces, new_points, point, null)
+	if new_surfaces == null:
+		return null;
+
+	var material_surface = generate_surfaces(new_points, new_surfaces)
+	if !material_surface:
+		CSGPlusGlobals.controller.error_panel.alert_if_empty("Material Surfaces failed to generate shape")
+		return false
+	if !is_valid_polygon(new_points, new_surfaces, make_line_cache(new_surfaces)):
+		CSGPlusGlobals.controller.error_panel.alert("Polygon overlaps itself and cannot produce shape")
+		return false
+	return [
+		MeshCommit.new(self, new_points, new_surfaces, material_surface),
+		MeshCommit.new(self, points.duplicate(), CSGPlusGlobals.FaceInfo.array_duplicate(surfaces))
+	]
+	
+
 func remove_point_at_across_line(point:int, line):
 	var other_point:int = line.vertex1
 	if other_point == point:
@@ -475,21 +519,9 @@ func remove_point_at_across_line(point:int, line):
 	#move last element to the new hole. N(1) time :)
 	new_points[point] = new_points[new_points.size()-1]
 	new_points.resize(new_points.size()-1)
-	for surface in new_surfaces:
-		var surface_vertexes:Array[int] = []
-		for vertex in surface.vertexes:
-			if vertex == point:
-				vertex = other_point
-			if vertex == new_points.size():
-				vertex = point
-			if surface_vertexes.size() == 0 || surface_vertexes[surface_vertexes.size()-1] != vertex:
-				surface_vertexes.append(vertex)
-		if surface_vertexes[0] == surface_vertexes[surface_vertexes.size()-1]:
-			surface_vertexes.resize(surface_vertexes.size()-1)
-		surface.vertexes = surface_vertexes
-	new_surfaces = new_surfaces.filter(
-		func(surface): return surface.vertexes.size() > 2
-	)
+	
+	new_surfaces = calibrate_surface_changes(new_surfaces, new_points, point, other_point)
+
 	var material_surface = generate_surfaces(new_points, new_surfaces)
 	if !material_surface:
 		CSGPlusGlobals.controller.error_panel.alert_if_empty("Material Surfaces failed to generate shape")

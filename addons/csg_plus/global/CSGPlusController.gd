@@ -10,6 +10,7 @@ var is_built = true
 var setting_global_positioner = false
 var snap = true
 var snap_distance = 1
+var edit_children = true
 
 var undo_redo
 var tool_controls
@@ -66,19 +67,15 @@ func set_tool(tool):
 func switch_mode(mode:CSGPlusGlobals.MODE):
 	var old_mode = self.mode
 	self.mode = mode
-
-	node_display_handler.make_target([])
+	refresh_targeting()
 	match mode:
 		CSGPlusGlobals.MODE.DEFAULT:
 			set_tool(null)
 		CSGPlusGlobals.MODE.POINT:
-			node_display_handler.make_target(global_targets)
 			set_tool(PointSelectTool.new())
 		CSGPlusGlobals.MODE.LINE:
-			node_display_handler.make_target(global_targets)
 			set_tool(LineSelectTool.new())
 		CSGPlusGlobals.MODE.FACE:
-			node_display_handler.make_target(global_targets)
 			set_tool(FaceSelectTool.new())
 		CSGPlusGlobals.MODE.CREATE:
 			set_tool(CubeCreatorTool.new())
@@ -88,6 +85,15 @@ func switch_mode(mode:CSGPlusGlobals.MODE):
 func refresh_tool():
 	if tool:
 		tool.refresh_tool()
+
+func refresh_targeting():
+	node_display_handler.make_target([])
+	match self.mode:
+		CSGPlusGlobals.MODE.DEFAULT,\
+		CSGPlusGlobals.MODE.POINT,\
+		CSGPlusGlobals.MODE.LINE,\
+		CSGPlusGlobals.MODE.FACE:
+			node_display_handler.make_target(global_targets)
 
 func set_targets(targets_models):
 	global_targets = targets_models

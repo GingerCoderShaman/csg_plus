@@ -26,7 +26,8 @@ func build_polygons(nodes):
 			var point_node = CSGPlusGlobals.ReflectedNode.new(node)
 			nodes_per_polygon[node] = point_node
 			add_child(point_node)
-		build_polygons(node.get_children())
+		if CSGPlusGlobals.controller.edit_children:
+			build_polygons(node.get_children())
 
 func refresh_nodes():
 	targeted_points = []

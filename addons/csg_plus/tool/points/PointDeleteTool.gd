@@ -72,10 +72,29 @@ func handle_node_selection_release(viewport_camera: Camera3D, event: InputEvent)
 	if !new_target.valid:
 		return
 	target_point = new_target.reflected_point
-	for line in new_target.reflected_node.lines.get_children():
+	var lines = new_target.reflected_node.lines.get_children()
+	for line in lines:
 		if (line.line.vertex1 == target_point.point_position || line.line.vertex2 == target_point.point_position):
 			targeted_lines.append(line)
 			line.material_override = CSGPlusGlobals.HOVER_LINE_MATERIAL
+	
+	if targeted_lines.size() == 0:
+		var result = target_point.target_node.mesh.remove_invalid_point(
+			target_point.point_position
+		)
+		if result == null:
+			CSGPlusGlobals.controller.error_panel.alert("Error deleting an invalid point, it has no line connections but a plane? how malformed is the shape?")
+			return
+		main.setup_undo_redo(
+			"Delete Point",
+			func():
+			result[0].commit()
+			CSGPlusGlobals.controller.node_display_handler.refresh_nodes(),
+			func():
+			result[1].commit()
+			CSGPlusGlobals.controller.node_display_handler.refresh_nodes()
+		)
+		return;
 
 func handle_line_selection_release(_viewport_camera: Camera3D, _event: InputEvent):
 	if hover_line:

@@ -111,9 +111,13 @@ func select_single(viewport_camera: Camera3D, position:Vector2):
 	if model == hover_target:
 		hover_target.material_override = null
 		hover_target = null
-
-	model.material_override = CSGPlusGlobals.TARGET_POINT_MATERIAL
-	reflected_target_points.append(model)
+	var index = reflected_target_points.find(model)
+	if index == -1:
+		model.material_override = CSGPlusGlobals.TARGET_POINT_MATERIAL
+		reflected_target_points.append(model)
+	else:
+		model.material_override = null;
+		reflected_target_points.remove_at(index)
 
 func select_area(viewport_camera: Camera3D, left_pos:Vector2, right_pos:Vector2):
 	var left:float = min(left_pos.x, right_pos.x)
