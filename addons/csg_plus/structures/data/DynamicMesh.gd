@@ -67,6 +67,108 @@ static func from_cube(scale:Vector3 = Vector3.ONE):
 	mesh.update_all()
 	return mesh
 
+static func from_mesh(original_mesh: Mesh):
+	var vertexes = []
+	var plane_surfaces = []
+
+	var triangle_points:Array[int] = []
+
+	####################################
+	# there certainly a better way then going over the data 4 and a half times to reduce polygons and setup data, but this is fine for now.
+	####################################
+	for point in original_mesh.get_faces():
+		var loc = vertexes.find(point)
+		if loc == -1:
+			vertexes.append(point)
+			triangle_points.append(vertexes.size()-1)
+		else:
+			triangle_points.append(loc)
+		if triangle_points.size() == 3:
+			var vertex0 = vertexes[triangle_points[0]]
+			var vertex1 = vertexes[triangle_points[1]]
+			var vertex2 = vertexes[triangle_points[2]]
+			var plane = Plane(vertex0,vertex1,vertex2)
+			plane_surfaces.append([plane, triangle_points])
+			triangle_points = []
+	var index = 0
+	while index < plane_surfaces.size():
+		var unchanged = true
+		var check_index = index
+
+		while check_index < plane_surfaces.size() -1:
+			check_index += 1
+			if plane_surfaces[index][0].is_equal_approx(plane_surfaces[check_index][0]):
+				for cpi in plane_surfaces[index][1].size():
+					var prev = plane_surfaces[index][1][cpi-1]
+					var next = plane_surfaces[index][1][cpi]
+
+					if plane_surfaces[check_index][1][0] == prev && \
+						plane_surfaces[check_index][1][2] == next:
+						plane_surfaces[index][1].insert(cpi, plane_surfaces[check_index][1][1])
+						plane_surfaces.remove_at(check_index)
+						unchanged = false
+						break;
+					if plane_surfaces[check_index][1][1] == prev && \
+						plane_surfaces[check_index][1][0] == next:
+						plane_surfaces[index][1].insert(cpi, plane_surfaces[check_index][1][2])
+						plane_surfaces.remove_at(check_index)
+						unchanged = false
+						break;
+					if plane_surfaces[check_index][1][2] == prev && \
+						plane_surfaces[check_index][1][1] == next:
+						plane_surfaces[index][1].insert(cpi, plane_surfaces[check_index][1][0])
+						plane_surfaces.remove_at(check_index)
+						unchanged = false
+						break;		
+		if unchanged:
+				index += 1
+	var mesh = new()
+	var base_material = CSGPlusGlobals.LevelDefaultMaterial
+
+
+	#seek points to be deleted.
+	var indexes_to_remove = []
+	for vertex_index in vertexes.size():
+		var surface_count = 0
+		for surface in plane_surfaces:
+			for point in surface[1]:
+				if point == vertex_index:
+					surface_count += 1
+		if surface_count < 3:
+			indexes_to_remove.append(vertex_index)
+	indexes_to_remove.reverse()
+	for remove_index in indexes_to_remove:
+		vertexes[remove_index] = vertexes[vertexes.size()-1]
+		vertexes.pop_back()
+		for surface_index in plane_surfaces.size():
+			var check_index = 0
+			while check_index < plane_surfaces[surface_index][1].size():
+				if plane_surfaces[surface_index][1][check_index] == remove_index:
+					plane_surfaces[surface_index][1].remove_at(check_index)
+					continue
+				if plane_surfaces[surface_index][1][check_index] == vertexes.size():
+					plane_surfaces[surface_index][1][check_index] = remove_index
+				check_index += 1
+	
+
+	mesh.points = vertexes
+
+	mesh.surfaces = []
+	for surface in plane_surfaces:
+		##last second removal to prevent duplicate numbers from all the previous step deletes
+		var surface_points = surface[1]
+		var point_index = 0
+		while point_index < surface_points.size():
+			if surface_points[point_index-1] == surface_points[point_index]:
+				surface_points.remove_at(point_index)
+			else:
+				point_index += 1
+
+		mesh.surfaces.append(CSGPlusGlobals.FaceInfo.new(surface_points, base_material))
+	mesh.update_all()
+	return mesh
+
+
 # ************************* CONSTRUCT VISUALS ******************************
 
 static func is_valid_polygon(points:Array, surfaces, line_cache):
