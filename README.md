@@ -24,10 +24,15 @@ it is recommended you use CSGCombiner3D(or a node3d to be swapped with it) and c
 ## plans for project 
 
 upcoming features are to include capabilities to transform any object with 3d Meshes (within reason for face count) into CSGPlusMesh. 
+
 maybe slight improvements to visuals (functionality is more important) 
+
 to be used as a base for a robot character editor. (editor tool might be released as part of the project for free) 
+
 to be used in my game project as a level editor, and a robot character editor. 
+
 to be a part of Godot assetlibs 
+
 Full Demos showing off features 
 
  
