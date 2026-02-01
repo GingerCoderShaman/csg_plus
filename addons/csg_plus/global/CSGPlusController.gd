@@ -171,7 +171,12 @@ func check_is_node_child(parent_node, other_node):
 
 func convert_nodes_mesh_for_plus(node):
 	match node.get_class():
-		"MeshInstance3D", "CSGMesh3D":
+		"MeshInstance3D":
+			return CSGPlusGlobals.DynamicMesh.from_mesh(node.mesh)
+		"CSGMesh3D":
+			if node.get_script().get_global_name() == "CSGPlusMesh":
+				#Hay that us!!
+				return null
 			return CSGPlusGlobals.DynamicMesh.from_mesh(node.mesh)
 		"CSGBox3D", "CSGCylinder3D":
 			var meshes = node.get_meshes()
