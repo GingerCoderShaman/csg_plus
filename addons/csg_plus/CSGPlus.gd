@@ -93,23 +93,24 @@ func _exit_tree() -> void:
 func _handles(changed_object: Object) -> bool:
 	#setting the targets to nothing in godot will retrigger this, this is a stop gap
 	get_editor_interface().get_inspector().get_child(0).visible = !changed_object == self
-	tool_controls.visible = changed_object == self
+	#tool_controls.visible = changed_object == self
 
-	var panel = get_editor_interface().get_inspector().get_parent().get_parent()
+	#var panel = get_editor_interface().get_inspector().get_parent().get_parent()
 	var versioning = Engine.get_version_info()
 	var minor_version = versioning['minor']
 	var major_version = versioning['major']
 
-	if minor_version >= 6: #resolves the tab being moved up in the editor in version 4.6, not a problem in version 4.5.
-		panel = panel.get_parent().get_parent()
+	#In Godot 4.5, these panels can be moved around, there is no way to identify them, guess we will have to deal with this crash for now.
+	#if minor_version >= 6: #resolves the tab being moved up in the editor in version 4.6, not a problem in version 4.5.
+	#	panel = panel.get_parent().get_parent()
 
-	if panel is TabContainer: #Godot 4.5
-		for tab_index in panel.get_tab_count():
-			if panel.get_tab_title(tab_index) != 'Inspector':
-				panel.set_tab_hidden(tab_index, changed_object == self)
-				panel.set_tab_disabled(tab_index, changed_object == self)
-	else:
-		print("Invalid inspect panel, plugin needs an update")
+	#if panel is TabContainer: #Godot 4.5
+	#	for tab_index in panel.get_tab_count():
+	#		if panel.get_tab_title(tab_index) != 'Inspector':
+	#			panel.set_tab_hidden(tab_index, changed_object == self)
+	#			panel.set_tab_disabled(tab_index, changed_object == self)
+	#else:
+	#	print("Invalid inspect panel, plugin needs an update")
 	if !(changed_object == self || (selection.get_selected_nodes().size() && selection.get_selected_nodes()[0] != self)):
 		CSGPlusGlobals.controller.switch_mode(CSGPlusGlobals.MODE.DEFAULT)
 		main_toolbar.set_flat_by_name("DefaultMode")
@@ -119,6 +120,7 @@ func _forward_3d_gui_input(viewport_camera: Camera3D, event: InputEvent) -> int:
 	return CSGPlusGlobals.controller._forward_3d_gui_input(viewport_camera, event)
 
 func undo_mode_changes(mode:CSGPlusGlobals.MODE):
+	tool_controls.visible = false
 	match mode:
 		CSGPlusGlobals.MODE.POINT:
 			var interface = get_editor_interface()
@@ -141,18 +143,22 @@ func switch_mode_callback(mode:CSGPlusGlobals.MODE, old_mode:CSGPlusGlobals.MODE
 			for target in CSGPlusGlobals.controller.global_targets:
 				selection.add_node(target)
 		CSGPlusGlobals.MODE.POINT:
+			tool_controls.visible = true
 			selection.clear()
 			selection.add_node(self)
 			add_control_to_container(EditorPlugin.CONTAINER_SPATIAL_EDITOR_MENU, point_toolbar)
 		CSGPlusGlobals.MODE.LINE:
+			tool_controls.visible = true
 			selection.clear()
 			selection.add_node(self)
 			add_control_to_container(EditorPlugin.CONTAINER_SPATIAL_EDITOR_MENU, line_toolbar)
 		CSGPlusGlobals.MODE.FACE:
+			tool_controls.visible = true
 			selection.clear()
 			selection.add_node(self)
 			add_control_to_container(EditorPlugin.CONTAINER_SPATIAL_EDITOR_MENU, face_toolbar)
 		CSGPlusGlobals.MODE.CREATE:
+			tool_controls.visible = true
 			selection.clear()
 			selection.add_node(self)
 			add_control_to_container(EditorPlugin.CONTAINER_SPATIAL_EDITOR_MENU, creator_toolbar)

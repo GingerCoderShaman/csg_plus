@@ -85,6 +85,12 @@ var offset_scale:
 	get():
 		return Vector2(%OffsetScaleX.value, %OffsetScaleY.value)
 
+var cylinder_points:
+	set(value):
+		%CylinderPoints.value = float(value)
+	get():
+		return %CylinderPoints.value
+
 var on_update_callback = null
 
 var _user_selected_material = null
@@ -100,7 +106,9 @@ func _ready() -> void:
 	snap_global = CSGPlusGlobals.controller.setting_global_positioner
 	snap_active = CSGPlusGlobals.controller.snap
 	edit_children = CSGPlusGlobals.controller.edit_children
-	%SnapNumberContainer.visible = CSGPlusGlobals.controller.snap
+	cylinder_points = CSGPlusGlobals.controller.cylinder_points
+	%SnapNumber.visible = CSGPlusGlobals.controller.snap
+	%SnapLabel.visible = CSGPlusGlobals.controller.snap
 	setup_options()
 
 func update():
@@ -128,7 +136,13 @@ func update_snap_number(value):
 func update_snap_active(value):
 	CSGPlusGlobals.controller.snap = value
 	CSGPlusGlobals.controller.refresh_tool()
-	%SnapNumberContainer.visible = CSGPlusGlobals.controller.snap
+	%SnapNumber.visible = CSGPlusGlobals.controller.snap
+	%SnapLabel.visible = CSGPlusGlobals.controller.snap
+	update()
+
+func update_cylider_points(value):
+	CSGPlusGlobals.controller.cylinder_points = int(value)
+	CSGPlusGlobals.controller.refresh_tool()
 	update()
 
 func update_snap_global(value):

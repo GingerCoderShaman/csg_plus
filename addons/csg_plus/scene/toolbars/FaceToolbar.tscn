@@ -1,23 +1,23 @@
-[gd_scene load_steps=4 format=3 uid="uid://bp43mecejn3ld"]
+[gd_scene format=3 uid="uid://bp43mecejn3ld"]
 
-[ext_resource type="Script" uid="uid://cq4yadvemideg" path="res://addons/csg_plus/scene/toolbars/FaceToolbar.gd" id="1_1ahcb"]
+[ext_resource type="Script" uid="uid://dikc5utxhxlmf" path="res://addons/csg_plus/scene/toolbars/CreatorToolbar.gd" id="1_60p4x"]
 [ext_resource type="Texture2D" uid="uid://bx1sgn2ubpfev" path="res://addons/csg_plus/resources/icons/plenticons/select.png" id="2_60p4x"]
 [ext_resource type="Texture2D" uid="uid://d34sijghsr22g" path="res://addons/csg_plus/resources/icons/plenticons/hammer-gray.png" id="3_60p4x"]
 
-[node name="FaceToolbar" type="HBoxContainer"]
+[node name="FaceToolbar" type="HBoxContainer" unique_id=372789038]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_bottom = -609.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_1ahcb")
+script = ExtResource("1_60p4x")
 
-[node name="Tools" type="HBoxContainer" parent="."]
+[node name="Tools" type="HBoxContainer" parent="." unique_id=1922014452]
 unique_name_in_owner = true
 layout_mode = 2
 
-[node name="SelectTool" type="Button" parent="Tools"]
+[node name="Cube" type="Button" parent="Tools" unique_id=1417451658]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 tooltip_text = "Selector Tool
@@ -26,7 +26,7 @@ icon = ExtResource("2_60p4x")
 expand_icon = true
 metadata/_edit_lock_ = false
 
-[node name="MaterialPainter" type="Button" parent="Tools"]
+[node name="Cylinder" type="Button" parent="Tools" unique_id=2109189378]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 tooltip_text = "Material Painter
@@ -35,6 +35,3 @@ icon = ExtResource("3_60p4x")
 flat = true
 expand_icon = true
 metadata/_edit_lock_ = false
-
-[connection signal="pressed" from="Tools/SelectTool" to="." method="_on_select_tool_pressed"]
-[connection signal="pressed" from="Tools/MaterialPainter" to="." method="_on_material_painter_pressed"]

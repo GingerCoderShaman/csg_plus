@@ -5,9 +5,9 @@ To enable CSG plus, add the addons folder into your project, and Godot engine pr
 
 ## Modes of editing 
 
-CSG plus comes with 5 modes of editing,  
+CSG plus comes with 5 modes of editing,
 
-the default Godot mode where you manipulate whole objects.  
+the default Godot mode where you manipulate whole objects.
 
 a point edits mode, where you can edit, add, or delete points on the polygon. 
 
@@ -21,9 +21,9 @@ Since this project uses CSG as its base, all the capabilities of godet CSG are a
 
 it is recommended you use CSGCombiner3D(or a node3d to be swapped with it) and convert your level to VisualInstance3d via Bake Mesh Instances built into godot before you deliver levels to players. or export your level for further blender edits. 
 
-## plans for project 
+there is also a function now to convert Base MeshInstance3D or CSG objects into CSGPlusMeshes.
 
-upcoming features are to include capabilities to transform any object with 3d Meshes (within reason for face count) into CSGPlusMesh. 
+## plans for project 
 
 maybe slight improvements to visuals (functionality is more important) 
 
@@ -33,6 +33,6 @@ to be used in my game project as a level editor, and a robot character editor.
 
 to be a part of Godot assetlibs 
 
-Full Demos showing off features 
+Full guide/pictures showing off features. (latest plans)
 
  

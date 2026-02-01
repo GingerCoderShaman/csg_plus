@@ -12,7 +12,7 @@ func _process(delta: float) -> void:
 		size.x = viewport.size.x * .8
 		position.x = viewport.size.x * .1
 		text_edit.size.x = size.x
-		modulate.a -= delta * .8
+		modulate.a -= delta * .2
 
 func alert(text:String):
 	text_edit.text = text

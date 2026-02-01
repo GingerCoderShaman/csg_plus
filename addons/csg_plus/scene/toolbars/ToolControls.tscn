@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://b5lj8ii0oon51"]
+[gd_scene format=3 uid="uid://b5lj8ii0oon51"]
 
 [ext_resource type="Script" uid="uid://bcflb8tl771r3" path="res://addons/csg_plus/scene/toolbars/ToolControls.gd" id="1_wynov"]
 
@@ -14,7 +14,7 @@ data = {
 [sub_resource type="ImageTexture" id="ImageTexture_xqs2c"]
 image = SubResource("Image_wynov")
 
-[node name="ToolControls" type="VBoxContainer"]
+[node name="ToolControls" type="VBoxContainer" unique_id=552911465]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -24,58 +24,60 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource("1_wynov")
 
-[node name="NodeSnap" type="HSplitContainer" parent="."]
+[node name="NodeSnap" type="HSplitContainer" parent="." unique_id=943246200]
 custom_minimum_size = Vector2(0, 35)
 layout_mode = 2
 
-[node name="BoxContainer" type="BoxContainer" parent="NodeSnap"]
+[node name="BoxContainer" type="BoxContainer" parent="NodeSnap" unique_id=651974936]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Label" type="Label" parent="NodeSnap/BoxContainer"]
+[node name="Label" type="Label" parent="NodeSnap/BoxContainer" unique_id=175413090]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Move Tool Controls"
 
-[node name="BoxContainer2" type="VBoxContainer" parent="NodeSnap"]
+[node name="BoxContainer2" type="VBoxContainer" parent="NodeSnap" unique_id=1647090624]
 layout_mode = 2
 size_flags_horizontal = 3
 alignment = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="NodeSnap/BoxContainer2"]
+[node name="HBoxContainer" type="HBoxContainer" parent="NodeSnap/BoxContainer2" unique_id=1952941304]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="SnapUse" type="CheckBox" parent="NodeSnap/BoxContainer2/HBoxContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 3
-button_pressed = true
-text = "Use Snap"
-
-[node name="SnapGlobal" type="CheckBox" parent="NodeSnap/BoxContainer2/HBoxContainer"]
+[node name="SnapGlobal" type="CheckBox" parent="NodeSnap/BoxContainer2/HBoxContainer" unique_id=1239001526]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Global Pos
 "
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="NodeSnap/BoxContainer2"]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="EditChildren" type="CheckBox" parent="NodeSnap/BoxContainer2/HBoxContainer2"]
+[node name="EditChildren" type="CheckBox" parent="NodeSnap/BoxContainer2/HBoxContainer" unique_id=798838285]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
+button_pressed = true
 text = "Edit Children"
 
-[node name="SnapNumberContainer" type="HBoxContainer" parent="NodeSnap/BoxContainer2"]
-unique_name_in_owner = true
+[node name="HBoxContainer2" type="HBoxContainer" parent="NodeSnap/BoxContainer2" unique_id=1759176610]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="SnapNumber" type="SpinBox" parent="NodeSnap/BoxContainer2/SnapNumberContainer"]
+[node name="SnapUse" type="CheckBox" parent="NodeSnap/BoxContainer2/HBoxContainer2" unique_id=549279755]
+unique_name_in_owner = true
+clip_contents = true
+layout_mode = 2
+size_flags_horizontal = 3
+button_pressed = true
+text = "Use Snap"
+
+[node name="SnapLabel" type="Label" parent="NodeSnap/BoxContainer2/HBoxContainer2" unique_id=1604921203]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Dist: "
+
+[node name="SnapNumber" type="SpinBox" parent="NodeSnap/BoxContainer2/HBoxContainer2" unique_id=1181953089]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
@@ -85,26 +87,26 @@ step = 0.1
 page = 1.0
 value = 1.0
 
-[node name="FaceMaterial" type="HSplitContainer" parent="."]
+[node name="FaceMaterial" type="HSplitContainer" parent="." unique_id=312569125]
 visible = false
 custom_minimum_size = Vector2(0, 35)
 layout_mode = 2
 
-[node name="BoxContainer" type="BoxContainer" parent="FaceMaterial"]
+[node name="BoxContainer" type="BoxContainer" parent="FaceMaterial" unique_id=98532918]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Label" type="Label" parent="FaceMaterial/BoxContainer"]
+[node name="Label" type="Label" parent="FaceMaterial/BoxContainer" unique_id=745931430]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Material Editor:"
 
-[node name="BoxContainer2" type="BoxContainer" parent="FaceMaterial"]
+[node name="BoxContainer2" type="BoxContainer" parent="FaceMaterial" unique_id=1937273234]
 layout_mode = 2
 size_flags_horizontal = 3
 alignment = 2
 
-[node name="TextureOption" type="OptionButton" parent="FaceMaterial/BoxContainer2"]
+[node name="TextureOption" type="OptionButton" parent="FaceMaterial/BoxContainer2" unique_id=1380077158]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
@@ -114,85 +116,85 @@ popup/item_0/text = "DefaultMaterial.tres"
 popup/item_0/icon = SubResource("ImageTexture_xqs2c")
 popup/item_0/id = 0
 
-[node name="FaceMaterialAddon" type="HSplitContainer" parent="."]
+[node name="FaceMaterialAddon" type="HSplitContainer" parent="." unique_id=857634720]
 visible = false
 custom_minimum_size = Vector2(0, 35)
 layout_mode = 2
 
-[node name="BoxContainer" type="BoxContainer" parent="FaceMaterialAddon"]
+[node name="BoxContainer" type="BoxContainer" parent="FaceMaterialAddon" unique_id=672986026]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Label" type="Label" parent="FaceMaterialAddon/BoxContainer"]
+[node name="Label" type="Label" parent="FaceMaterialAddon/BoxContainer" unique_id=1657112759]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Addon Material:"
 
-[node name="BoxContainer2" type="BoxContainer" parent="FaceMaterialAddon"]
+[node name="BoxContainer2" type="BoxContainer" parent="FaceMaterialAddon" unique_id=1701965373]
 layout_mode = 2
 size_flags_horizontal = 3
 alignment = 2
 
-[node name="IncludeAddons" type="CheckBox" parent="FaceMaterialAddon/BoxContainer2"]
+[node name="IncludeAddons" type="CheckBox" parent="FaceMaterialAddon/BoxContainer2" unique_id=1756383086]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Include"
 
-[node name="Button" type="Button" parent="FaceMaterialAddon/BoxContainer2"]
+[node name="Button" type="Button" parent="FaceMaterialAddon/BoxContainer2" unique_id=229774567]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Refresh"
 
-[node name="FaceMaterialOffset" type="HSplitContainer" parent="."]
+[node name="FaceMaterialOffset" type="HSplitContainer" parent="." unique_id=897062656]
 visible = false
 custom_minimum_size = Vector2(0, 35)
 layout_mode = 2
 
-[node name="BoxContainer2" type="BoxContainer" parent="FaceMaterialOffset"]
+[node name="BoxContainer2" type="BoxContainer" parent="FaceMaterialOffset" unique_id=749824558]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Label" type="Label" parent="FaceMaterialOffset/BoxContainer2"]
+[node name="Label" type="Label" parent="FaceMaterialOffset/BoxContainer2" unique_id=1806231012]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Material Offset"
 
-[node name="BoxContainer" type="BoxContainer" parent="FaceMaterialOffset"]
+[node name="BoxContainer" type="BoxContainer" parent="FaceMaterialOffset" unique_id=843131588]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="VBoxContainer" type="VBoxContainer" parent="FaceMaterialOffset/BoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="FaceMaterialOffset/BoxContainer" unique_id=293349947]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="HBoxContainer" type="HBoxContainer" parent="FaceMaterialOffset/BoxContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="FaceMaterialOffset/BoxContainer/VBoxContainer" unique_id=1798516431]
 layout_mode = 2
 size_flags_vertical = 3
 tooltip_text = "UV is divided by 100.
 
 the value of 100 is the full width of a UV texture"
 
-[node name="BoxContainer" type="BoxContainer" parent="FaceMaterialOffset/BoxContainer/VBoxContainer/HBoxContainer"]
+[node name="BoxContainer" type="BoxContainer" parent="FaceMaterialOffset/BoxContainer/VBoxContainer/HBoxContainer" unique_id=1917433547]
 layout_mode = 2
 size_flags_horizontal = 3
 tooltip_text = "UV is divided by 100.
 
 the value of 100 is the full width of a UV texture"
 
-[node name="Label" type="Label" parent="FaceMaterialOffset/BoxContainer/VBoxContainer/HBoxContainer/BoxContainer"]
+[node name="Label" type="Label" parent="FaceMaterialOffset/BoxContainer/VBoxContainer/HBoxContainer/BoxContainer" unique_id=849885371]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "X:"
 
-[node name="BoxContainer2" type="BoxContainer" parent="FaceMaterialOffset/BoxContainer/VBoxContainer/HBoxContainer"]
+[node name="BoxContainer2" type="BoxContainer" parent="FaceMaterialOffset/BoxContainer/VBoxContainer/HBoxContainer" unique_id=94245113]
 layout_mode = 2
 size_flags_horizontal = 3
 tooltip_text = "UV is divided by 100.
 
 the value of 100 is the full width of a UV texture"
 
-[node name="OffsetX" type="SpinBox" parent="FaceMaterialOffset/BoxContainer/VBoxContainer/HBoxContainer/BoxContainer2"]
+[node name="OffsetX" type="SpinBox" parent="FaceMaterialOffset/BoxContainer/VBoxContainer/HBoxContainer/BoxContainer2" unique_id=669083248]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
@@ -201,33 +203,33 @@ page = 1.0
 allow_greater = true
 allow_lesser = true
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="FaceMaterialOffset/BoxContainer/VBoxContainer"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="FaceMaterialOffset/BoxContainer/VBoxContainer" unique_id=690785710]
 layout_mode = 2
 size_flags_vertical = 3
 tooltip_text = "UV is divided by 100.
 
 the value of 100 is the full width of a UV texture"
 
-[node name="BoxContainer" type="BoxContainer" parent="FaceMaterialOffset/BoxContainer/VBoxContainer/HBoxContainer2"]
+[node name="BoxContainer" type="BoxContainer" parent="FaceMaterialOffset/BoxContainer/VBoxContainer/HBoxContainer2" unique_id=895650597]
 layout_mode = 2
 size_flags_horizontal = 3
 tooltip_text = "UV is divided by 100.
 
 the value of 100 is the full width of a UV texture"
 
-[node name="Label" type="Label" parent="FaceMaterialOffset/BoxContainer/VBoxContainer/HBoxContainer2/BoxContainer"]
+[node name="Label" type="Label" parent="FaceMaterialOffset/BoxContainer/VBoxContainer/HBoxContainer2/BoxContainer" unique_id=490239828]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Y:"
 
-[node name="BoxContainer2" type="BoxContainer" parent="FaceMaterialOffset/BoxContainer/VBoxContainer/HBoxContainer2"]
+[node name="BoxContainer2" type="BoxContainer" parent="FaceMaterialOffset/BoxContainer/VBoxContainer/HBoxContainer2" unique_id=852146345]
 layout_mode = 2
 size_flags_horizontal = 3
 tooltip_text = "UV is divided by 100.
 
 the value of 100 is the full width of a UV texture"
 
-[node name="OffsetY" type="SpinBox" parent="FaceMaterialOffset/BoxContainer/VBoxContainer/HBoxContainer2/BoxContainer2"]
+[node name="OffsetY" type="SpinBox" parent="FaceMaterialOffset/BoxContainer/VBoxContainer/HBoxContainer2/BoxContainer2" unique_id=905248195]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
@@ -236,24 +238,24 @@ page = 1.0
 allow_greater = true
 allow_lesser = true
 
-[node name="HBoxContainer3" type="HBoxContainer" parent="FaceMaterialOffset/BoxContainer/VBoxContainer"]
+[node name="HBoxContainer3" type="HBoxContainer" parent="FaceMaterialOffset/BoxContainer/VBoxContainer" unique_id=1207088525]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="BoxContainer" type="BoxContainer" parent="FaceMaterialOffset/BoxContainer/VBoxContainer/HBoxContainer3"]
+[node name="BoxContainer" type="BoxContainer" parent="FaceMaterialOffset/BoxContainer/VBoxContainer/HBoxContainer3" unique_id=474044624]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Label" type="Label" parent="FaceMaterialOffset/BoxContainer/VBoxContainer/HBoxContainer3/BoxContainer"]
+[node name="Label" type="Label" parent="FaceMaterialOffset/BoxContainer/VBoxContainer/HBoxContainer3/BoxContainer" unique_id=1168380702]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Angle (radians):"
 
-[node name="BoxContainer2" type="BoxContainer" parent="FaceMaterialOffset/BoxContainer/VBoxContainer/HBoxContainer3"]
+[node name="BoxContainer2" type="BoxContainer" parent="FaceMaterialOffset/BoxContainer/VBoxContainer/HBoxContainer3" unique_id=86270114]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="OffsetAngle" type="SpinBox" parent="FaceMaterialOffset/BoxContainer/VBoxContainer/HBoxContainer3/BoxContainer2"]
+[node name="OffsetAngle" type="SpinBox" parent="FaceMaterialOffset/BoxContainer/VBoxContainer/HBoxContainer3/BoxContainer2" unique_id=1400930660]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
@@ -261,30 +263,30 @@ max_value = 360.0
 step = 0.1
 page = 1.0
 
-[node name="HBoxContainer4" type="HBoxContainer" parent="FaceMaterialOffset/BoxContainer/VBoxContainer"]
+[node name="HBoxContainer4" type="HBoxContainer" parent="FaceMaterialOffset/BoxContainer/VBoxContainer" unique_id=1252133468]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="BoxContainer" type="BoxContainer" parent="FaceMaterialOffset/BoxContainer/VBoxContainer/HBoxContainer4"]
+[node name="BoxContainer" type="BoxContainer" parent="FaceMaterialOffset/BoxContainer/VBoxContainer/HBoxContainer4" unique_id=680675428]
 layout_mode = 2
 size_flags_horizontal = 3
 tooltip_text = "UV is divided by 1000.
 
 the value of 1000 is the full width of a UV texture"
 
-[node name="Label" type="Label" parent="FaceMaterialOffset/BoxContainer/VBoxContainer/HBoxContainer4/BoxContainer"]
+[node name="Label" type="Label" parent="FaceMaterialOffset/BoxContainer/VBoxContainer/HBoxContainer4/BoxContainer" unique_id=627339641]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Scale X:"
 
-[node name="BoxContainer2" type="BoxContainer" parent="FaceMaterialOffset/BoxContainer/VBoxContainer/HBoxContainer4"]
+[node name="BoxContainer2" type="BoxContainer" parent="FaceMaterialOffset/BoxContainer/VBoxContainer/HBoxContainer4" unique_id=205380282]
 layout_mode = 2
 size_flags_horizontal = 3
 tooltip_text = "UV is divided by 1000.
 
 the value of 1000 is the full width of a UV texture"
 
-[node name="OffsetScaleX" type="SpinBox" parent="FaceMaterialOffset/BoxContainer/VBoxContainer/HBoxContainer4/BoxContainer2"]
+[node name="OffsetScaleX" type="SpinBox" parent="FaceMaterialOffset/BoxContainer/VBoxContainer/HBoxContainer4/BoxContainer2" unique_id=307578992]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
@@ -294,24 +296,24 @@ value = 1.0
 allow_greater = true
 allow_lesser = true
 
-[node name="HBoxContainer5" type="HBoxContainer" parent="FaceMaterialOffset/BoxContainer/VBoxContainer"]
+[node name="HBoxContainer5" type="HBoxContainer" parent="FaceMaterialOffset/BoxContainer/VBoxContainer" unique_id=26855845]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="BoxContainer" type="BoxContainer" parent="FaceMaterialOffset/BoxContainer/VBoxContainer/HBoxContainer5"]
+[node name="BoxContainer" type="BoxContainer" parent="FaceMaterialOffset/BoxContainer/VBoxContainer/HBoxContainer5" unique_id=543191918]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Label" type="Label" parent="FaceMaterialOffset/BoxContainer/VBoxContainer/HBoxContainer5/BoxContainer"]
+[node name="Label" type="Label" parent="FaceMaterialOffset/BoxContainer/VBoxContainer/HBoxContainer5/BoxContainer" unique_id=930456046]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Scale Y:"
 
-[node name="BoxContainer2" type="BoxContainer" parent="FaceMaterialOffset/BoxContainer/VBoxContainer/HBoxContainer5"]
+[node name="BoxContainer2" type="BoxContainer" parent="FaceMaterialOffset/BoxContainer/VBoxContainer/HBoxContainer5" unique_id=1085490377]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="OffsetScaleY" type="SpinBox" parent="FaceMaterialOffset/BoxContainer/VBoxContainer/HBoxContainer5/BoxContainer2"]
+[node name="OffsetScaleY" type="SpinBox" parent="FaceMaterialOffset/BoxContainer/VBoxContainer/HBoxContainer5/BoxContainer2" unique_id=2112966507]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
@@ -321,10 +323,41 @@ value = 1.0
 allow_greater = true
 allow_lesser = true
 
-[connection signal="toggled" from="NodeSnap/BoxContainer2/HBoxContainer/SnapUse" to="." method="update_snap_active"]
+[node name="CylinderControls" type="HSplitContainer" parent="." unique_id=445774690]
+custom_minimum_size = Vector2(0, 35)
+layout_mode = 2
+
+[node name="BoxContainer" type="BoxContainer" parent="CylinderControls" unique_id=1979928385]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="CylinderControls/BoxContainer" unique_id=1955628248]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Cylinder Points"
+
+[node name="BoxContainer2" type="VBoxContainer" parent="CylinderControls" unique_id=477139103]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 2
+
+[node name="CylinderNumberContainer" type="HBoxContainer" parent="CylinderControls/BoxContainer2" unique_id=1997522596]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="CylinderPoints" type="SpinBox" parent="CylinderControls/BoxContainer2/CylinderNumberContainer" unique_id=797052198]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+min_value = 3.0
+max_value = 31.0
+page = 1.0
+value = 8.0
+
 [connection signal="toggled" from="NodeSnap/BoxContainer2/HBoxContainer/SnapGlobal" to="." method="update_snap_global"]
-[connection signal="toggled" from="NodeSnap/BoxContainer2/HBoxContainer2/EditChildren" to="." method="_on_edit_children_toggled"]
-[connection signal="value_changed" from="NodeSnap/BoxContainer2/SnapNumberContainer/SnapNumber" to="." method="update_snap_number"]
+[connection signal="toggled" from="NodeSnap/BoxContainer2/HBoxContainer/EditChildren" to="." method="_on_edit_children_toggled"]
+[connection signal="toggled" from="NodeSnap/BoxContainer2/HBoxContainer2/SnapUse" to="." method="update_snap_active"]
+[connection signal="value_changed" from="NodeSnap/BoxContainer2/HBoxContainer2/SnapNumber" to="." method="update_snap_number"]
 [connection signal="item_selected" from="FaceMaterial/BoxContainer2/TextureOption" to="." method="material_selected"]
 [connection signal="pressed" from="FaceMaterialAddon/BoxContainer2/IncludeAddons" to="." method="reset_resource_options"]
 [connection signal="pressed" from="FaceMaterialAddon/BoxContainer2/Button" to="." method="reset_resource_options"]
@@ -333,3 +366,4 @@ allow_lesser = true
 [connection signal="value_changed" from="FaceMaterialOffset/BoxContainer/VBoxContainer/HBoxContainer3/BoxContainer2/OffsetAngle" to="." method="update_offset_angle"]
 [connection signal="value_changed" from="FaceMaterialOffset/BoxContainer/VBoxContainer/HBoxContainer4/BoxContainer2/OffsetScaleX" to="." method="update_offset_scale_x"]
 [connection signal="value_changed" from="FaceMaterialOffset/BoxContainer/VBoxContainer/HBoxContainer5/BoxContainer2/OffsetScaleY" to="." method="update_offset_scale_y"]
+[connection signal="value_changed" from="CylinderControls/BoxContainer2/CylinderNumberContainer/CylinderPoints" to="." method="update_cylider_points"]

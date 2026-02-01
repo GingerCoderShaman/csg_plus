@@ -1,6 +1,10 @@
 @tool
 extends HBoxContainer
 
+func _ready():
+	var popup = %UpgradeNode.get_popup()
+	popup.connect("id_pressed", _upgrade_menu_selected.bind())
+
 func set_default_mode():
 	set_flat_by_name("DefaultMode")
 	CSGPlusGlobals.controller.switch_mode(CSGPlusGlobals.MODE.DEFAULT)
@@ -15,6 +19,8 @@ func set_flat_by_name(node_name:String):
 			child.flat = false
 		elif child is Button:
 			child.flat = true
+func update_mode(mode):
+	%UpgradeNode.visible = (mode == CSGPlusGlobals.MODE.DEFAULT)
 
 func _on_line_mode_pressed() -> void:
 	set_flat_by_name("LineMode")
@@ -28,3 +34,6 @@ func _on_face_mode_pressed() -> void:
 func _on_create_mode_pressed() -> void:
 	set_flat_by_name("CreateMode")
 	CSGPlusGlobals.controller.switch_mode(CSGPlusGlobals.MODE.CREATE)
+
+func _upgrade_menu_selected(id):
+	CSGPlusGlobals.controller.upgrade_node_in_scene(id == 1)

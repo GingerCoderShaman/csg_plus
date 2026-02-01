@@ -67,6 +67,38 @@ static func from_cube(scale:Vector3 = Vector3.ONE):
 	mesh.update_all()
 	return mesh
 
+static func from_cylinder(distance_on_plane: float, height: float, point_count: int):
+	var mesh = new()
+
+	var base_material = CSGPlusGlobals.LevelDefaultMaterial
+
+	var points:PackedVector3Array = []
+
+	var surfaces:Array = []
+
+	var bottom_surface_points:Array[int]  = []
+	var top_surface_points:Array[int]  = []
+
+	var max_point_index = point_count * 2
+	for index in point_count:
+		var angle = float(index) / point_count
+		points.push_back(Vector3(cos(angle * PI * 2) * distance_on_plane, sin(angle * PI * 2) * distance_on_plane, 0))
+		points.push_back(Vector3(cos(angle * PI * 2) * distance_on_plane, sin(angle * PI * 2) * distance_on_plane, height))
+		
+		var point_index = index * 2
+		surfaces.push_back(CSGPlusGlobals.FaceInfo.new([point_index, point_index + 1, (point_index+3) % max_point_index, (point_index+2) % max_point_index], base_material))
+		bottom_surface_points.push_back(point_index)
+		top_surface_points.push_back(max_point_index - (point_index+1))
+	
+	surfaces.push_back(CSGPlusGlobals.FaceInfo.new(bottom_surface_points, base_material))
+	surfaces.push_back(CSGPlusGlobals.FaceInfo.new(top_surface_points, base_material))
+
+	mesh.points = points
+	mesh.surfaces = surfaces
+	mesh.update_all()
+
+	return mesh
+
 static func from_mesh(original_mesh: Mesh):
 	var vertexes = []
 	var plane_surfaces = []
@@ -74,7 +106,12 @@ static func from_mesh(original_mesh: Mesh):
 	var triangle_points:Array[int] = []
 
 	####################################
-	# there certainly a better way then going over the data 4 and a half times to reduce polygons and setup data, but this is fine for now.
+	# there certainly a better way then going over the data 3 and a half times to reduce polygons and setup data, but this is fine for now.
+	# first iteration is craete face objects
+	# second iteration is merge face objects of the same plane
+	# third iteration is eliminate extra points.
+	# iterate this var every time we can't optimize this with full functionality
+	# ATTEMPTS TO REDUCE: 2
 	####################################
 	for point in original_mesh.get_faces():
 		var loc = vertexes.find(point)
@@ -154,6 +191,10 @@ static func from_mesh(original_mesh: Mesh):
 	mesh.points = vertexes
 
 	mesh.surfaces = []
+	if plane_surfaces.size() > 100:
+		CSGPlusGlobals.controller.error_panel.alert_if_empty("over 100 faces in Mesh after simplification, object is rejected from upgrading. please use simplier objects")
+		return null
+
 	for surface in plane_surfaces:
 		##last second removal to prevent duplicate numbers from all the previous step deletes
 		var surface_points = surface[1]
@@ -166,6 +207,10 @@ static func from_mesh(original_mesh: Mesh):
 
 		mesh.surfaces.append(CSGPlusGlobals.FaceInfo.new(surface_points, base_material))
 	mesh.update_all()
+	if !is_valid_polygon(mesh.points_data, mesh.surface_data, mesh.line_cache):
+		CSGPlusGlobals.controller.error_panel.alert_if_empty("Object is not a valid CSG object for CSG plus, ")
+		return null
+
 	return mesh
 
 
