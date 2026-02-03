@@ -30,7 +30,7 @@ metadata/_edit_lock_ = false
 unique_name_in_owner = true
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
-tooltip_text = "Editor Node Mode"
+tooltip_text = "Upgrade MeshInstance3D or CSObject to CSGPlus"
 icon = ExtResource("3_h3ase")
 expand_icon = true
 item_count = 2
@@ -43,7 +43,7 @@ metadata/_edit_lock_ = false
 [node name="NodeMode" type="Button" parent="ModeSelector" unique_id=2069964989]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
-tooltip_text = "Editor Node Mode"
+tooltip_text = "Edit Point Mode"
 icon = ExtResource("3_k0orr")
 flat = true
 expand_icon = true
@@ -52,7 +52,7 @@ metadata/_edit_lock_ = false
 [node name="LineMode" type="Button" parent="ModeSelector" unique_id=1657675580]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
-tooltip_text = "Editor Line Mode"
+tooltip_text = "Edit Line Mode"
 icon = ExtResource("4_ipqao")
 flat = true
 expand_icon = true
@@ -61,7 +61,7 @@ metadata/_edit_lock_ = false
 [node name="FaceMode" type="Button" parent="ModeSelector" unique_id=320695751]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
-tooltip_text = "Editor Face Mode"
+tooltip_text = "Edit Face Mode"
 icon = ExtResource("5_rarxp")
 flat = true
 expand_icon = true
@@ -70,7 +70,7 @@ metadata/_edit_lock_ = false
 [node name="CreateMode" type="Button" parent="ModeSelector" unique_id=2126921300]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
-tooltip_text = "Editor Node Mode"
+tooltip_text = "Create CSGPlus Node"
 icon = ExtResource("6_jxetx")
 flat = true
 expand_icon = true
