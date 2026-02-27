@@ -39,7 +39,7 @@ func handle_input(viewport_camera: Camera3D, event: InputEvent) -> bool:
 
 
 func handle_event_pressed(_viewport_camera: Camera3D, _event: InputEvent):
-	if hover_lines:
+	if hover_lines && hover_lines.reflected_node && hover_lines.reflected_node.target_mesh:
 		var result = hover_lines.reflected_node.target_mesh.mesh.delete_lines_clear_loose_points(hover_lines.connected_cache_lines)
 		if (result):
 			main.setup_undo_redo(

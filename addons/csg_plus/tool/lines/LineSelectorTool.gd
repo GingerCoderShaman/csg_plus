@@ -118,7 +118,7 @@ func select_single(viewport_camera: Camera3D, position:Vector2):
 		line.material_override = CSGPlusGlobals.TARGET_POINT_MATERIAL
 		targeted_lines.append(line)
 		for node in target_line.vertex_indexes:
-			if !reflected_target_points.has(node):
+			if !reflected_target_points.has(node) && !node.target_node.mesh.is_point_in_disabled_face(node.point_position):
 				reflected_target_points.append(node)
 				node.material_override = CSGPlusGlobals.TARGET_POINT_MATERIAL
 

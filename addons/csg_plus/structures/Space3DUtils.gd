@@ -154,6 +154,8 @@ static func plane_transform(plane:Plane):
 	var normal = plane.normal
 	if (normal.is_equal_approx(Vector3.UP) || normal.is_equal_approx(Vector3.DOWN)):
 		transform = Transform3D.IDENTITY.looking_at(normal, Vector3.FORWARD)
+	elif normal.is_zero_approx():
+		transform = Transform3D.IDENTITY
 	else:
 		transform = Transform3D.IDENTITY.looking_at(normal)
 	transform = transform.translated_local(Vector3(0, 0, -plane.d / normal.length()))

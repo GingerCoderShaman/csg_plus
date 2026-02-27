@@ -36,10 +36,7 @@ static func init_controller(mode_has_changed_callback, undo_redo, selectable_sce
 	singleton.selectable_scene = selectable_scene
 	singleton.scene_adder = scene_adder
 	singleton.scene_viewport = scene_viewport
-	if Engine.is_editor_hint():
-		singleton.undo_redo = undo_redo
-	else:
-		print('Add Editor Hint API to Ingame controls')
+	singleton.undo_redo = undo_redo
 	return singleton
 
 func setup(mode_has_changed_callback) -> void:
@@ -98,6 +95,9 @@ func refresh_targeting():
 			CSGPlusGlobals.controller.tool_controls.visible = true
 		CSGPlusGlobals.MODE.CREATE:
 			CSGPlusGlobals.controller.tool_controls.visible = true
+
+func refresh_deep_mesh():
+	node_display_handler.refresh_nodes_mesh()
 
 func set_targets(targets_models):
 	global_targets = targets_models
@@ -236,4 +236,8 @@ func setup_undo_redo(name:String, redo_command, undo_command):
 		undo_redo.add_undo_method(self, 'call_history_editor', undo_command)
 		undo_redo.commit_action()
 	else:
-		pass
+		var node = self
+		undo_redo.create_action(name)
+		undo_redo.add_do_method(redo_command)
+		undo_redo.add_undo_method(undo_command)
+		undo_redo.commit_action()

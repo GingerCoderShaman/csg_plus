@@ -121,6 +121,7 @@ func _forward_3d_gui_input(viewport_camera: Camera3D, event: InputEvent) -> int:
 
 func undo_mode_changes(mode:CSGPlusGlobals.MODE):
 	tool_controls.visible = false
+	tool_controls.show_cyclinder_controls = false
 	match mode:
 		CSGPlusGlobals.MODE.POINT:
 			var interface = get_editor_interface()
@@ -161,6 +162,7 @@ func switch_mode_callback(mode:CSGPlusGlobals.MODE, old_mode:CSGPlusGlobals.MODE
 			tool_controls.visible = true
 			selection.clear()
 			selection.add_node(self)
+			tool_controls.show_cyclinder_controls = true
 			add_control_to_container(EditorPlugin.CONTAINER_SPATIAL_EDITOR_MENU, creator_toolbar)
 
 func _on_selection_changed():

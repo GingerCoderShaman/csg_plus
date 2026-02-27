@@ -3,6 +3,20 @@ extends VBoxContainer
 
 const RESOURCE_REFERENCE = "res://"
 
+var show_advanced_editor:
+	set(value):
+		%EditChildren.visible = value
+		%FaceMaterialAddon.visible = value;
+	get():
+		return %EditChildren.visible
+var show_cyclinder_controls:
+	set(value): 
+		%CylinderControls.visible = value
+	get():
+		return $CylinderControls.visible
+
+var material_provider = Callable(self, "obtain_material_files")
+
 var snap_amount:
 	set(value):
 		%SnapNumber.value = value
@@ -26,7 +40,6 @@ var edit_children:
 		%EditChildren.button_pressed = value
 	get():
 		return %EditChildren.button_pressed
-		
 
 var current_texture:
 	set(value):
@@ -38,6 +51,13 @@ var current_texture:
 		if id == -1 || id >= materials.size():
 			return _user_selected_material
 		return materials[id]
+
+var locked_face:
+	set(value):
+		%Locked.button_pressed = value
+	get():
+		return %Locked.button_pressed
+	
 
 var materials = []
 
@@ -125,7 +145,9 @@ func reset_resource_options():
 
 func set_face_addons_visible(open=true):
 	for node:Control in get_children():
-		if node.name.begins_with('Face'):
+		if node.name == 'FaceMaterialAddon':
+			node.visible = open && show_advanced_editor
+		elif node.name.begins_with('Face'):
 			node.visible = open
 
 func update_snap_number(value):
@@ -165,6 +187,10 @@ func update_offset_scale_x(_value):
 func update_offset_scale_y(_value):
 	update()
 
+func update_locked():
+	update()
+	CSGPlusGlobals.controller.refresh_deep_mesh()
+
 func _on_edit_children_toggled(toggled_on: bool) -> void:
 	CSGPlusGlobals.controller.edit_children = toggled_on
 	CSGPlusGlobals.controller.refresh_targeting()
@@ -175,10 +201,13 @@ func setup_options():
 	materials = []
 	var names = []
 	%TextureOption.clear()
-	seek_material_files(RESOURCE_REFERENCE, materials_found)
+	material_provider.call(materials_found)
 	for data in materials_found.keys():
 		materials.append(data)
-		names.append(materials_found[data])
+		var name = materials_found[data]
+		if name.length() > 16:
+			name = name.substr(0, 14) + "..."
+		names.append(name)
 	CSGPlusGlobals.controller.material_renderer.take_snapshots(
 		materials,
 		func(images):
@@ -188,6 +217,9 @@ func setup_options():
 				if _user_selected_material:
 					current_texture = _user_selected_material
 	)
+
+func obtain_material_files(materials_found):
+	seek_material_files(RESOURCE_REFERENCE, materials_found)
 
 func seek_material_files(path: String, materials_found):
 	var dir = DirAccess.open(path)

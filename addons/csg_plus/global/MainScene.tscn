@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://d3c30wvyqc0e8"]
+[gd_scene format=3 uid="uid://d3c30wvyqc0e8"]
 
 [ext_resource type="Script" uid="uid://dht7g0j83f8mw" path="res://addons/csg_plus/global/NodeHandler.gd" id="1_j6ybj"]
 [ext_resource type="Script" uid="uid://d3marfauiuvpx" path="res://addons/csg_plus/global/CSGPlusController.gd" id="1_kcv8l"]
@@ -11,43 +11,42 @@
 [sub_resource type="QuadMesh" id="QuadMesh_b1ym1"]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_nw53l"]
-viewport_path = NodePath(".")
+viewport_path = NodePath("Render3DOver/render_3d_overarea")
 
 [sub_resource type="QuadMesh" id="QuadMesh_nw53l"]
 material = ExtResource("6_hb4uy")
 
-[node name="CSGPlusGlobals" type="Node"]
+[node name="CSGPlusGlobals" type="Node" unique_id=1589526484]
 script = ExtResource("1_kcv8l")
 
-[node name="NodesHandler" type="Node" parent="."]
+[node name="NodesHandler" type="Node" parent="." unique_id=791694636]
 unique_name_in_owner = true
 script = ExtResource("1_j6ybj")
 
-[node name="FaceHandler" type="Node" parent="."]
+[node name="FaceHandler" type="Node" parent="." unique_id=1425922094]
 unique_name_in_owner = true
 
-[node name="2DOverlay" type="Node" parent="."]
+[node name="2DOverlay" type="Node" parent="." unique_id=35398837]
 unique_name_in_owner = true
 
-[node name="Render3DOver" type="MeshInstance2D" parent="."]
+[node name="Render3DOver" type="MeshInstance2D" parent="." unique_id=1872671003]
 unique_name_in_owner = true
 z_index = 4096
 y_sort_enabled = true
-position = Vector2(559, 311)
-scale = Vector2(1224.21, -681.09)
+position = Vector2(595, 327.5)
+scale = Vector2(1303.05, -717.22504)
 mesh = SubResource("QuadMesh_b1ym1")
 texture = SubResource("ViewportTexture_nw53l")
 script = ExtResource("2_aad4h")
 
-[node name="render_3d_overarea" parent="Render3DOver" instance=ExtResource("4_nw53l")]
+[node name="render_3d_overarea" parent="Render3DOver" unique_id=1930574573 instance=ExtResource("4_nw53l")]
 unique_name_in_owner = true
-size = Vector2i(1118, 622)
-size_2d_override = Vector2i(1118, 622)
+process_mode = 3
 
-[node name="Miscellaneous" type="Node" parent="."]
+[node name="Miscellaneous" type="Node" parent="." unique_id=1315797533]
 unique_name_in_owner = true
 
-[node name="ErrorPanel" type="Panel" parent="."]
+[node name="ErrorPanel" type="Panel" parent="." unique_id=693607843]
 unique_name_in_owner = true
 modulate = Color(1, 1, 1, -0.00110297)
 anchors_preset = 7
@@ -64,7 +63,7 @@ grow_vertical = 0
 mouse_filter = 2
 script = ExtResource("7_1dq63")
 
-[node name="ErrorPanelText" type="TextEdit" parent="ErrorPanel"]
+[node name="ErrorPanelText" type="TextEdit" parent="ErrorPanel" unique_id=860021413]
 layout_mode = 0
 offset_right = 846.0
 offset_bottom = 37.0
@@ -77,11 +76,11 @@ shortcut_keys_enabled = false
 selecting_enabled = false
 deselect_on_focus_loss_enabled = false
 drag_and_drop_selection_enabled = false
-virtual_keyboard_enabled = false
 middle_mouse_paste_enabled = false
 empty_selection_clipboard_enabled = false
+virtual_keyboard_enabled = false
 
-[node name="MaterialRenderer" type="SubViewport" parent="."]
+[node name="MaterialRenderer" type="SubViewport" parent="." unique_id=2140348202]
 unique_name_in_owner = true
 own_world_3d = true
 debug_draw = 1
@@ -89,9 +88,9 @@ size = Vector2i(64, 64)
 render_target_update_mode = 0
 script = ExtResource("5_hb4uy")
 
-[node name="Camera3D" type="Camera3D" parent="MaterialRenderer"]
+[node name="Camera3D" type="Camera3D" parent="MaterialRenderer" unique_id=1499399863]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.6)
 current = true
 
-[node name="DrawingPad" type="MeshInstance3D" parent="MaterialRenderer"]
+[node name="DrawingPad" type="MeshInstance3D" parent="MaterialRenderer" unique_id=214860623]
 mesh = SubResource("QuadMesh_nw53l")

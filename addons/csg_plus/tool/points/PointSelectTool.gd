@@ -15,6 +15,31 @@ func unbind_tool():
 	if hover_target:
 		hover_target.material_override = null
 
+func _enter_tree() -> void:
+	if !InputMap.has_action(CSGPlusGlobals.NODE_UNSELECT):
+		InputMap.add_action(CSGPlusGlobals.NODE_UNSELECT)
+	var unselect_targets = InputEventKey.new()
+	unselect_targets.keycode = KEY_ESCAPE
+	InputMap.action_add_event(CSGPlusGlobals.NODE_UNSELECT, unselect_targets)
+
+	#primaryClick
+	var click = InputEventMouseButton.new()
+	if !InputMap.has_action(CSGPlusGlobals.NODE_SELECTED):
+		InputMap.add_action(CSGPlusGlobals.NODE_SELECTED)
+	click.button_index = MOUSE_BUTTON_LEFT
+	InputMap.action_add_event(CSGPlusGlobals.NODE_SELECTED, click)
+
+	#hold onto nodes action
+	var hold = InputEventKey.new()
+	if !InputMap.has_action(CSGPlusGlobals.NODE_HOLD):
+		InputMap.add_action(CSGPlusGlobals.NODE_HOLD)
+	hold.keycode = KEY_CTRL
+	InputMap.action_add_event(CSGPlusGlobals.NODE_HOLD, hold)
+
+func _exit_tree():
+	InputMap.action_erase_events(CSGPlusGlobals.NODE_UNSELECT)
+	InputMap.action_erase_events(CSGPlusGlobals.NODE_SELECTED)
+	InputMap.action_erase_events(CSGPlusGlobals.NODE_HOLD)
 
 func handle_input(viewport_camera: Camera3D, event: InputEvent) -> bool:
 	if event.is_action(CSGPlusGlobals.NODE_UNSELECT):
@@ -130,7 +155,7 @@ func select_area(viewport_camera: Camera3D, left_pos:Vector2, right_pos:Vector2)
 			if left < screen_local.x && screen_local.x < right && \
 					down < screen_local.y && screen_local.y < up:
 						var target_loc:int = reflected_target_points.find(target_point_node)
-						if target_loc != -1:
+						if target_loc != -1 || target_point_node.target_node.mesh.is_point_in_disabled_face(target_point_node.point_position):
 							continue
 						target_point_node.material_override = CSGPlusGlobals.TARGET_POINT_MATERIAL
 						reflected_target_points.append(target_point_node)

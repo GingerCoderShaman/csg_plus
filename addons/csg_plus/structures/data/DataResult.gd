@@ -23,6 +23,8 @@ var reflected_plane = null
 
 var visual_object = null #used in line creator tool for hover tracking (node or line)
 
+var accessible_points = []
+
 var reflected_object:
     get():
         match data_type:
@@ -38,27 +40,35 @@ static func invalid_result():
     result.valid = false
     return result
 
-static func result_from_point(distance, interaction_point, point_index):
+static func result_from_point(distance, interaction_point, point_index, is_point_disabled):
     var result = DataResult.new()
     result.data_type = 'point'
     result.distance = distance
     result.intersection_point = interaction_point
     result.point_index = point_index
+    if is_point_disabled:
+        result.valid = false
+    else:
+        result.accessible_points = [point_index]
     return result
 
-static func result_from_line(distance, interaction_point, cached_line):
+static func result_from_line(distance, interaction_point, cached_line, accessible_points):
     var result = DataResult.new()
     result.data_type = 'line'
     result.distance = distance
     result.intersection_point = interaction_point
     result.cached_line = cached_line;
+    result.accessible_points = accessible_points
+    if result.accessible_points.size() == 0:
+        result.valid = false
     return result
 
-static func result_from_plame(distance, interaction_point, plane, face):
+static func result_from_plame(distance, interaction_point, plane, face, accessible_points):
     var result = DataResult.new()
     result.data_type = 'plane'
     result.distance = distance
     result.intersection_point = interaction_point
     result.plane = plane
-    result.face = face;
+    result.face = face
+    result.accessible_points = accessible_points
     return result

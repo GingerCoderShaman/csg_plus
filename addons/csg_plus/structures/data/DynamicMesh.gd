@@ -35,8 +35,8 @@ func verify_parent(parent):
 		update_all()
 		return self
 	var new_mesh = new()
-	new_mesh.points = points
-	new_mesh.surfaces = surfaces
+	new_mesh.points = points.duplicate()
+	new_mesh.surfaces = CSGPlusGlobals.FaceInfo.array_duplicate(surfaces)
 	new_mesh.verified_parent = parent
 	new_mesh.update_all()
 	return new_mesh
@@ -158,7 +158,7 @@ static func from_mesh(original_mesh: Mesh):
 						unchanged = false
 						break;		
 		if unchanged:
-				index += 1
+			index += 1
 	var mesh = new()
 	var base_material = CSGPlusGlobals.LevelDefaultMaterial
 
@@ -394,8 +394,14 @@ func find_point(origin:Vector3, normal:Vector3, radius:float = .01):
 		if result:
 			var distance = result[0].distance_to(origin)
 			if (!closest.valid || closest.distance > distance):
-				closest = DataResult.result_from_point(distance, result[0], index)
+				closest = DataResult.result_from_point(distance, result[0], index, is_point_in_disabled_face(index))
 	return closest
+
+func is_point_in_disabled_face(point: int):
+	for face in surfaces:
+		if face.locked && face.vertexes.has(point):
+			return true
+	return false
 
 func shift_point_position(position:int, offset:Vector3):
 	points[position] += offset
@@ -420,9 +426,15 @@ func get_point_on_line(origin:Vector3, normal:Vector3, offset:float = .01):
 	for line in line_cache.keys():
 		var result = line.line_intersects_vectors(points, origin, normal, offset)
 		if result != null:
+			var validPoints = []
+			if !is_point_in_disabled_face(line.vertex1):
+				validPoints.append(line.vertex1)
+			if !is_point_in_disabled_face(line.vertex2):
+				validPoints.append(line.vertex2)
+
 			var distance = result.distance_to(origin)
 			if !closest.valid || distance < closest.distance:
-				closest = DataResult.result_from_line(distance, result, line)
+				closest = DataResult.result_from_line(distance, result, line, validPoints)
 	return closest
 
 func get_lines_and_planes_from_point(point):
@@ -487,6 +499,19 @@ static func find_line_in_cache(line_cache:Dictionary, line):
 		if line.equals(check_line):
 			return line_cache[check_line]
 	return null
+
+func is_face_flat(face, prime_node):
+	var normal = null
+	for index in face.vertexes.length - 2:
+		var vertex1 = points[face.vertexes[index]]
+		var vertex2 = points[face.vertexes[index+1]]
+		var vertex3 = points[face.vertexes[index+2]]
+		var plane = Plane(vertex1,vertex2,vertex3)
+		if normal == null:
+			normal = plane
+		elif !normal.is_equal_approx(plane.normal):
+			return false
+	return true
 
 func is_valid_line_creation(point1, line1, point2, line2):
 	var data1
@@ -811,7 +836,12 @@ func get_point_on_plane(origin: Vector3, normal:Vector3):
 			if result != null:
 				var distance = result.distance_to(origin)
 				if !closest.valid || closest.distance > distance:
-					closest = DataResult.result_from_plame(distance, result, Plane(vertex1, vertex2, vertex3), face)
+					var valid_points = []
+					if !face.locked:
+						for vertex in face.vertexes:
+							if is_point_in_disabled_face(vertex):
+								valid_points.append(vertex)
+					closest = DataResult.result_from_plame(distance, result, Plane(vertex1, vertex2, vertex3), face, valid_points)
 	return closest
 
 func get_face_normal(plane):

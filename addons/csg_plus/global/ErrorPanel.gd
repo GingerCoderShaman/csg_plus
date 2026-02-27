@@ -1,7 +1,7 @@
 @tool
 extends Panel
 
-var viewport:SubViewport
+var viewport:Viewport
 @onready var text_edit:TextEdit = $"ErrorPanelText"
 
 func _ready() -> void:

@@ -9,7 +9,8 @@ func set_flat_by_name(node_name:String):
 			child.flat = true
 
 func _exit_tree() -> void:
-	set_flat_by_name("SelectTool")
+	#set_flat_by_name("SelectTool")
+	pass
 
 func _on_select_tool_pressed() -> void:
 	set_flat_by_name("SelectTool")

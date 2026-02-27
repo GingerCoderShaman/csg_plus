@@ -19,6 +19,7 @@ func bind_tool():
 			targeted_face.uv_offset = toolbar.offset_position
 			targeted_face.uv_angle = toolbar.offset_angle
 			targeted_face.uv_scale = toolbar.offset_scale
+			targeted_face.locked = toolbar.locked_face
 			targeted_model.target_mesh.mesh.update_all()
 	CSGPlusGlobals.controller.tool_controls.set_face_addons_visible(true)
 
@@ -101,7 +102,7 @@ func handle_face_hover(origin:Vector3, normal:Vector3):
 		hover_lines = []
 		hover_face = new_face
 		for new_point in new_points:
-			if !reflected_target_points.has(new_point):
+			if !reflected_target_points.has(new_point) && !new_point.target_node.mesh.is_point_in_disabled_face(new_point.point_position):
 				new_point.material_override = CSGPlusGlobals.HOVER_LINE_MATERIAL
 				hover_points.append(new_point)
 		for new_line in new_lines:
@@ -175,10 +176,13 @@ func select_single(viewport_camera: Camera3D, position:Vector2):
 			CSGPlusGlobals.controller.tool_controls.offset_position = new_face.uv_offset
 			CSGPlusGlobals.controller.tool_controls.offset_angle = new_face.uv_angle
 			CSGPlusGlobals.controller.tool_controls.offset_scale = new_face.uv_scale
+			CSGPlusGlobals.controller.tool_controls.locked_face = new_face.locked
 			targeted_model = result.reflected_node
 		targeted_face = new_face
 
 		for new_point in new_points:
+			if new_point.target_node.mesh.is_point_in_disabled_face(new_point.point_position):
+				continue
 			new_point.material_override = CSGPlusGlobals.TARGET_POINT_MATERIAL
 			reflected_target_points.append(new_point)
 		for new_line in new_lines:

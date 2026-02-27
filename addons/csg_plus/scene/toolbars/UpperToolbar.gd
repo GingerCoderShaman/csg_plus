@@ -1,6 +1,43 @@
 @tool
 extends HBoxContainer
 
+var enabled_default_mode:
+	get:
+		return %DefaultMode.visible
+	set(value):
+		%DefaultMode.visible = value
+
+var enabled_upgrade_node:
+	get:
+		return %UpgradeNode.visible
+	set(value):
+		%UpgradeNode.visible = value
+
+var enabled_point_node:
+	get:
+		return %PointMode.visible
+	set(value):
+		%PointMode.visible = value
+
+var enabled_linenode:
+	get:
+		return %LineMode.visible
+	set(value):
+		%LineMode.visible = value
+
+var enabled_face_node:
+	get:
+		return %FaceMode.visible
+	set(value):
+		%FaceMode.visible = value
+
+var enabled_create_node:
+	get:
+		return %CreateMode.visible
+	set(value):
+		%CreateMode.visible = value
+
+
 func _ready():
 	var popup = %UpgradeNode.get_popup()
 	popup.connect("id_pressed", _upgrade_menu_selected.bind())

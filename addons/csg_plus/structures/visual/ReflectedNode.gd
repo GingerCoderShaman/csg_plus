@@ -1,6 +1,8 @@
 @tool
 extends Node3D
 
+static var locked:Material = preload('res://addons/csg_plus/resources/material/Generic/Locked.tres')
+
 var target_mesh = null;
 
 var lines = Node3D.new()
@@ -15,6 +17,12 @@ func _init(target_mesh = null) -> void:
 
 	set_meta("_edit_lock_", true)
 	sync()
+
+func refresh_mesh():
+	for child in lines.get_children():
+		child.refresh_mesh()
+	for child in points.get_children():
+		child.refresh_mesh()
 
 func sync():
 	for child in lines.get_children():

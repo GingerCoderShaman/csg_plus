@@ -34,6 +34,12 @@ func refresh_nodes():
 	for node in get_children():
 		node.sync()
 
+func refresh_nodes_mesh():
+	targeted_points = []
+	for node in get_children():
+		node.refresh_mesh()
+
+
 func seek_point(origin:Vector3, normal:Vector3):
 	var new_point = DataResult.invalid_result()
 	for reflected_node in get_children():

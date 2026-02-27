@@ -30,7 +30,6 @@ func unbind_tool():
 	destroy_visual()
 
 func refresh_tool():
-	print('test')
 	destroy_visual()
 	setup_visual()
 	process_visual(CSGPlusGlobals.controller.editor_camera)

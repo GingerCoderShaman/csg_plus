@@ -3,17 +3,24 @@ extends MeshInstance3D
 
 static var resource:SphereMesh = preload('res://addons/csg_plus/resources/mesh/PointMesh.tres')
 
+static var locked:Material = preload('res://addons/csg_plus/resources/material/Generic/Locked.tres')
+
 var point_position: int
 var target_node
 
 func _init(target_node, point_position:int) -> void:
-	mesh = resource.duplicate()
 	self.target_node = target_node;
 	self.point_position = point_position
 	self.position = target_node.mesh.points[point_position]
 	#todo, demand a better method
 	set_meta("_edit_lock_", true)
 	cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+	refresh_mesh()
+
+func refresh_mesh():
+	mesh = resource.duplicate()
+	if target_node.mesh.is_point_in_disabled_face(point_position):
+		mesh.material = locked
 
 func _process(_delta: float) -> void:
 	scale = (Vector3.ONE * Plane.PLANE_XY.distance_to(CSGPlusGlobals.controller.editor_camera.to_local(global_position)) / 2.0) * get_parent().get_parent().scale.inverse()

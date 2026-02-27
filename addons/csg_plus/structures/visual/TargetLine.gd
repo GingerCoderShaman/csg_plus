@@ -2,20 +2,23 @@
 extends MeshInstance3D
 
 static var resource:CylinderMesh = preload('res://addons/csg_plus/resources/mesh/LineMesh.tres')
+static var locked:Material = preload('res://addons/csg_plus/resources/material/Generic/Locked.tres')
 
 var target_node
 var line
 
 func _init(target_node, line) -> void:
-	mesh = resource
 	self.target_node = target_node;
 	self.line = line
 	#todo, demand a better method
 	set_meta("_edit_lock_", true)
 	cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+	refresh_mesh()
 
-func _ready():
-	pass
+func refresh_mesh():
+	mesh = resource.duplicate()
+	if target_node.mesh.is_point_in_disabled_face(line.vertex1) && target_node.mesh.is_point_in_disabled_face(line.vertex2):
+		mesh.material = locked
 
 func _process(_delta: float) -> void:
 	if target_node.mesh.points.size() <= line.vertex1 || target_node.mesh.points[line.vertex1] == null \

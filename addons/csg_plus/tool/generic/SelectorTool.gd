@@ -48,6 +48,8 @@ func angle_gizmo():
 	target_gizmo.rotation_offset = Quaternion.IDENTITY
 
 func position_gizmo():
+	if render_3d_overarea.process_mode != 3:
+		return
 	if reflected_target_points.size() == 0:
 		if target_gizmo.is_inside_tree():
 			render_3d_overarea.remove_child(target_gizmo)

@@ -1,7 +1,7 @@
 @tool
 extends SubViewport
 
-var viewport:SubViewport
+var viewport: Viewport
 
 func _ready() -> void:
 	viewport = CSGPlusGlobals.controller.scene_viewport

@@ -86,4 +86,7 @@ func select_single(viewport_camera: Camera3D, position:Vector2):
 		new_face.uv_offset = CSGPlusGlobals.controller.tool_controls.offset_position
 		new_face.uv_angle = CSGPlusGlobals.controller.tool_controls.offset_angle
 		new_face.uv_scale = CSGPlusGlobals.controller.tool_controls.offset_scale
+		if new_face.locked != CSGPlusGlobals.controller.tool_controls.locked_face:
+			new_face.locked = CSGPlusGlobals.controller.tool_controls.locked_face
+			CSGPlusGlobals.controller.refresh_deep_mesh()
 		result.reflected_node.target_mesh.mesh.update_all()
